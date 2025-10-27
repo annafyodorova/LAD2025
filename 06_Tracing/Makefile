@@ -15,7 +15,7 @@ test: test_move test_preload
 test_move: move
 	@echo "=== Test 1: open outfile fails (exit 2) ==="
 	echo hello > in
-	strace -e inject=openat:error=EACCES:when=2 ./move in test_out 2> $(TEST)1 || true
+	strace -e inject=openat:error=EACCES:when=3 ./move in test_out 2> $(TEST)1 || true
 	grep -q "+++ exited with 2" $(TEST)1 && test -f in && echo "TEST #1 PASSED" || (echo "TEST #1 FAILED"; exit 1)
 
 	@echo "=== Test 2: read fails (exit 5) ==="
