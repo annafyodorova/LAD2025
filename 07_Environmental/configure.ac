@@ -1,0 +1,35 @@
+AC_PREREQ([2.69])
+AC_INIT([rhasher], [0.1], [your-email@example.com])
+AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AC_CONFIG_SRCDIR([src/rhasher.c])
+AC_CONFIG_HEADERS([config.h])
+
+# Check for compiler
+AC_PROG_CC
+
+# Check for librhash (required)
+PKG_CHECK_MODULES([RHASH], [librhash >= 1.0])
+
+# Optional readline support
+AC_ARG_ENABLE([readline],
+  [AS_HELP_STRING([--disable-readline], [do not use readline even if available])],
+  [],
+  [enable_readline=yes]
+)
+
+AS_IF([test "x$enable_readline" != "xno"],
+  [AC_CHECK_HEADERS([readline/readline.h])
+   AC_CHECK_LIB([readline], [readline],
+     [have_readline=yes],
+     [have_readline=no])
+   AS_IF([test "x$have_readline" = "xyes" && test "x$ac_cv_header_readline_readline_h" = "xyes"],
+     [AC_DEFINE([READLINE], [1], [Use readline library])
+      READLINE_LIBS="-lreadline"
+     ],
+     [AC_MSG_WARN([readline support disabled: readline library or headers not found])])
+  ]
+)
+
+AC_SUBST([READLINE_LIBS])
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT
