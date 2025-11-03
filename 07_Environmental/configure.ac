@@ -1,21 +1,20 @@
 AC_PREREQ([2.69])
-AC_INIT([rhasher], [0.1], [your-email@example.com])
-AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AC_INIT([rhasher], [0.1], [])
+AM_INIT_AUTOMAKE([-Wall -Werror foreign subdir-objects])
 AC_CONFIG_SRCDIR([src/rhasher.c])
 AC_CONFIG_HEADERS([config.h])
 
-# Check for compiler
 AC_PROG_CC
 
-# Check for librhash (required)
 PKG_CHECK_MODULES([RHASH], [librhash >= 1.0])
 
-# Optional readline support
 AC_ARG_ENABLE([readline],
   [AS_HELP_STRING([--disable-readline], [do not use readline even if available])],
   [],
   [enable_readline=yes]
 )
+
+AC_CHECK_HEADERS([unistd.h rhash.h readline/readline.h])
 
 AS_IF([test "x$enable_readline" != "xno"],
   [AC_CHECK_HEADERS([readline/readline.h])

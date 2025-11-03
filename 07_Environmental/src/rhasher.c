@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
     rhash_library_init();
 
-    while (true) {
+    while (1) {
         #ifdef READLINE
             line = (char *)readline(NULL);
             if (!line) {
@@ -61,7 +61,6 @@ int main(int argc, char *argv[]) {
             continue;
         }
 
-        // int hash_type = algo[0] == tolower(algo[0]) ? RHPR_BASE64 : RHPR_HEX;
         int use_base64 = (algo[0] >= 'a' && algo[0] <= 'z');
         int hash_type = use_base64 ? RHPR_BASE64 : RHPR_HEX;
 
@@ -73,7 +72,7 @@ int main(int argc, char *argv[]) {
                 free(line);
                 line = NULL;
             } else {
-                fprintf(stderr, "Cannot hash string %s!\n", file_or_string);
+                fprintf(stderr, "Cannot hash file %s!\n", file_or_string);
                 free(line);
                 continue;
             }
@@ -86,7 +85,7 @@ int main(int argc, char *argv[]) {
                 free(line);
                 line = NULL;
             } else {
-                fprintf(stderr, "Cannot hash file %s!\n", file_or_string);
+                fprintf(stderr, "Cannot hash string %s!\n", file_or_string);
                 free(line);
                 continue;
             }
