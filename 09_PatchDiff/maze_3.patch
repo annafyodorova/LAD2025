@@ -1,0 +1,43 @@
+--- maze_2.c	2025-11-25 16:09:09.487026068 +0300
++++ maze_3.c	2025-11-25 16:13:16.923566546 +0300
+@@ -1,6 +1,5 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+-#include <time.h>
+ #include <stdbool.h>
+ #include <string.h>
+ 
+@@ -41,23 +40,26 @@
+ }
+ 
+ int main(int argc, char *argv[]) {
+-    srand((unsigned)time(NULL));
+-
+-    if (argc != 3) {
+-        fprintf(stderr, "Usage: %s <passage><wall> <n_rooms>\n", argv[0]);
++    if (argc != 4) {
++        fprintf(stderr, "Usage: %s <seed> <passage><wall> <n_rooms>\n", argv[0]);
+         return 1;
+     }
+ 
+-    const char* symbols = argv[1];
++    char *endptr;
++    unsigned long seed = strtoul(argv[1], &endptr, 10);
++
++    const char* symbols = argv[2];
+     if (strlen(symbols) != 2) {
+-        fprintf(stderr, "Error: first argument must be exactly two characters.\n");
++        fprintf(stderr, "Error: symbol string must be exactly two characters.\n");
+         return 1;
+     }
+ 
+     char passage = symbols[0];
+     char wall = symbols[1];
+ 
+-    int rooms = atoi(argv[2]);
++    int rooms = atoi(argv[3]);
++
++    srand((unsigned int)seed);
+ 
+     int maze_size = 2 * rooms + 1;
+ 

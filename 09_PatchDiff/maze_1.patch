@@ -1,0 +1,16 @@
+--- maze.c	2025-11-25 16:08:06.214885831 +0300
++++ maze_1.c	2025-11-25 16:08:07.118887842 +0300
+@@ -43,7 +43,12 @@
+ int main(int argc, char *argv[]) {
+     srand((unsigned)time(NULL));
+ 
+-    int rooms = 6;
++    if (argc != 2) {
++        return 1;
++    }
++
++    int rooms = atoi(argv[1]);
++
+     int maze_size = 2*rooms + 1;
+ 
+     char **maze = malloc(maze_size * sizeof(char*));

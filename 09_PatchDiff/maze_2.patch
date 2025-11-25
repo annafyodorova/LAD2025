@@ -1,0 +1,74 @@
+--- maze_1.c	2025-11-25 16:08:07.118887842 +0300
++++ maze_2.c	2025-11-25 16:08:08.538891000 +0300
+@@ -2,14 +2,14 @@
+ #include <stdlib.h>
+ #include <time.h>
+ #include <stdbool.h>
+-
++#include <string.h>
+ 
+ const int DR[4] = {-1, 1, 0, 0};
+ const int DC[4] = {0, 0, -1, 1};
+-const int WALL_DR[4] = {-1, 1, 0, 0}; 
++const int WALL_DR[4] = {-1, 1, 0, 0};
+ const int WALL_DC[4] = {0, 0, -1, 1};
+ 
+-void dfs(char** maze, bool** visited, int r, int c, int rooms) {
++void dfs(char** maze, bool** visited, int r, int c, int rooms, char passage, char wall) {
+     visited[r][c] = true;
+     int cell_r = 2 * r + 1;
+     int cell_c = 2 * c + 1;
+@@ -34,28 +34,38 @@
+ 
+         int wall_r = cell_r + WALL_DR[dir];
+         int wall_c = cell_c + WALL_DC[dir];
+-        maze[wall_r][wall_c] = '.';
++        maze[wall_r][wall_c] = passage;
+ 
+-        dfs(maze, visited, nr, nc, rooms);
++        dfs(maze, visited, nr, nc, rooms, passage, wall);
+     }
+ }
+ 
+ int main(int argc, char *argv[]) {
+     srand((unsigned)time(NULL));
+ 
+-    if (argc != 2) {
++    if (argc != 3) {
++        fprintf(stderr, "Usage: %s <passage><wall> <n_rooms>\n", argv[0]);
+         return 1;
+     }
+ 
+-    int rooms = atoi(argv[1]);
++    const char* symbols = argv[1];
++    if (strlen(symbols) != 2) {
++        fprintf(stderr, "Error: first argument must be exactly two characters.\n");
++        return 1;
++    }
++
++    char passage = symbols[0];
++    char wall = symbols[1];
++
++    int rooms = atoi(argv[2]);
+ 
+-    int maze_size = 2*rooms + 1;
++    int maze_size = 2 * rooms + 1;
+ 
+     char **maze = malloc(maze_size * sizeof(char*));
+     for (int i = 0; i < maze_size; i++) {
+         maze[i] = malloc((maze_size + 1) * sizeof(char));
+         for (int j = 0; j < maze_size; j++) {
+-            maze[i][j] = (i % 2 == 1 && j % 2 == 1) ? '.' : '#';
++            maze[i][j] = (i % 2 == 1 && j % 2 == 1) ? passage : wall;
+         }
+         maze[i][maze_size] = '\0';
+     }
+@@ -65,7 +75,7 @@
+         visited[i] = calloc(rooms, sizeof(bool));
+     }
+ 
+-    dfs(maze, visited, 0, 0, rooms);
++    dfs(maze, visited, 0, 0, rooms, passage, wall);
+ 
+     for (int i = 0; i < maze_size; i++) {
+         puts(maze[i]);
