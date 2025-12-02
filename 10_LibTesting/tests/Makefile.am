@@ -33,7 +33,7 @@ int main(void) {\
 
 test_buf_SOURCES = test_buf.c
 test_buf_CFLAGS = $(CHECK_CFLAGS)
-test_buf_LDADD = $(top_builddir)/src/libgrowable-buf.la $(CHECK_LIBS)
+test_buf_LDADD = $(top_builddir)/src/libbuf.la $(CHECK_LIBS)
 
 if COND_GCOV
 test_buf_CFLAGS += $(GCOV_CFLAGS)
