@@ -1,7 +1,14 @@
-lib_LTLIBRARIES = libbuf.la
-libbuf_la_SOURCES = buf.c
-
+CFLAGS = -std=c99 -Wall -Wextra
 if COND_GCOV
-libbuf_la_CFLAGS = $(GCOV_CFLAGS)
-libbuf_la_LDFLAGS = $(GCOV_LDFLAGS)
+CFLAGS += -O0 -g -fprofile-arcs -ftest-coverage
+else
+CFLAGS += -O3 -g3
 endif
+
+lib_LTLIBRARIES = libbuf.la
+
+gcov:
+	gcov -o .libs libbuf -t -k -b | egrep -v '[[:digit:]]:[ /][*]'
+
+covperc:
+	gcov -o .libs libbuf -t -f -b | grep -e 'Lines executed' -e 'blocks executed'

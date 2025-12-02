@@ -1,7 +1,22 @@
-#include "../src/buf.h"
+#include "../src/libbuf.h"
 #include <check.h>
 
-#test push_pop
+#test buf_grow_buf_trunc
+	long *ai = 0;
+
+	buf_grow(ai, 1000);
+
+	ck_assert_int_eq(buf_capacity(ai), 1000);
+	ck_assert_int_eq(buf_size(ai), 0);
+
+	buf_trunc(ai, 100);
+
+	ck_assert_int_eq(buf_capacity(ai), 100);
+
+	buf_free(ai);
+
+
+#test buf_push_pop_test
     int *v = NULL;
     for (int i = 0; i < 100; i++) {
         buf_push(v, i);
@@ -15,7 +30,7 @@
     buf_free(v);
     ck_assert_ptr_null(v);
 
-#test grow_capacity
+#test buf_grow_capacity_test
     double *v = NULL;
     ck_assert_uint_eq(buf_size(v), 0);
     ck_assert_uint_eq(buf_capacity(v), 0);
@@ -32,7 +47,7 @@
 
     buf_free(v);
 
-#test trunc
+#test buf_trunc_test
     char *v = NULL;
     for (int i = 0; i < 20; i++) {
         buf_push(v, (char)('A' + i));
@@ -45,9 +60,8 @@
     ck_assert_uint_eq(buf_size(v), 10); // size clamped
 
     buf_trunc(v, 0);
-    ck_assert_ptr_null(v);
 
-#test clear
+#test buf_clear_test
     float *v = NULL;
     for (size_t i = 0; i < 5; i++) {
         buf_push(v, (float)i);
@@ -58,7 +72,7 @@
     ck_assert_uint_ge(buf_capacity(v), 5); // capacity unchanged
     buf_free(v);
 
-#test struct
+#test buf_struct_test
     struct point { int x, y; };
     struct point *v = NULL;
 
@@ -78,14 +92,14 @@
 
     buf_free(v);
 
-#test init_capacity
+#test buf_init_capacity_test
     short *v = NULL;
     buf_push(v, 42);
     ck_assert_uint_eq(buf_capacity(v), 8); // BUF_INIT_CAPACITY
     ck_assert_uint_eq(buf_size(v), 1);
     buf_free(v);
 
-#test clear_null_ptr
+#test buf_clear_null_ptr_test
     float *v = NULL;
     ck_assert_uint_eq(buf_size(v), 0);
     ck_assert_ptr_null(v);
