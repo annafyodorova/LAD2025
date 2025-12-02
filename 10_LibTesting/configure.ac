@@ -3,14 +3,15 @@ AC_PREREQ([2.69])
 AC_INIT([growable-buf], [1.0], [your@email])
 AM_INIT_AUTOMAKE([foreign -Wall])
 AC_CONFIG_MACRO_DIRS([m4])
-LT_INIT
 
-AC_CONFIG_SRCDIR([src/growable_buf.c])
+AC_CONFIG_SRCDIR([src/buf.c])
 AC_CONFIG_HEADERS([config.h])
 
 # Programs
 AC_PROG_CC
 AM_PROG_AR
+
+LT_INIT
 
 # Headers
 AC_CHECK_HEADERS([stddef.h stdlib.h])
