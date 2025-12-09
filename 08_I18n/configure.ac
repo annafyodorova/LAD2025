@@ -1,19 +1,23 @@
 AC_PREREQ([2.71])
-AC_INIT([guess_number], [0.0], [anyaf2003@gmail.com])
+AC_INIT([guess], [0.0], [])
+
+
 AM_INIT_AUTOMAKE([foreign subdir-objects])
+
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION(0.21)
 
 AC_CONFIG_SRCDIR([src/guess.c])
 AC_CONFIG_HEADERS([config.h])
 
-AC_PROG_CC
+AC_SUBST(GETTEXT_PACKAGE, "$PACKAGE")
+
+ALL_LINGUAS="ru"
 
 AC_CHECK_HEADERS([libintl.h locale.h stdlib.h])
 
-AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION([0.26])
-
-AC_CHECK_FUNCS([setlocale])
+AC_PROG_CC
+IT_PROG_INTLTOOL([0.35.0])
 
 AC_CONFIG_FILES([Makefile po/Makefile.in])
-
 AC_OUTPUT

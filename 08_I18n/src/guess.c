@@ -4,14 +4,14 @@
 #include <libgen.h>
 #include <libintl.h>
 #include <locale.h>
+#include "config.h"
 
 #define _(STRING) gettext(STRING)
 
 int main(int argc, char **argv) {
 	setlocale(LC_ALL, "");
-	bindtextdomain("guess_number", ".");
-	textdomain("guess_number");
-
+    bindtextdomain(PACKAGE, LOCALEDIR);
+	textdomain(PACKAGE);
     printf(_("Think of a number from 1 to 100: \n"));
 
     char responce[256];
@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
         printf(_("Is your number bigger than %d? (%s/%s): "), mid, _("yes"), _("no"));
         fflush(stdout);
 
-        if (scanf("%255s", response) != 1) {
+        if (scanf("%255s", responce) != 1) {
             fprintf(stderr, _("Read error\n"));
             return 1;
         }

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version:  08_I18n\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-14 12:41+0300\n"
+"Report-Msgid-Bugs-To: vasily.mozgovykh@yandex.ru\n"
+"POT-Creation-Date: 2025-11-18 12:48+0300\n"
 "PO-Revision-Date: 2025-11-14 12:52+0300\n"
 "Last-Translator: Анна Федорова <annafedorova@macbook-air-anna-6.local>\n"
 "Language-Team: Russian <gnu@d07.ru>\n"
@@ -39,7 +39,7 @@ msgstr "нет"
 #: src/guess.c:26
 #, c-format
 msgid "Read error\n"
-msgstr "Ошибка чтения"
+msgstr "Ошибка чтения\n"
 
 #: src/guess.c:35
 #, c-format
