@@ -11,6 +11,7 @@ CLEANFILES =
 
 .PHONY: check
 check: rhasher
+	@echo "Hello, LAD2025!" > t.txt
 	@echo "Testing SHA1"
 	@ref=$$(sha1sum t.txt | cut -d' ' -f1); \
 	out=$$(echo 'SHA1 t.txt' | ./rhasher | tail -n1); \
@@ -31,9 +32,5 @@ check: rhasher
 	fi
 	@echo "All tests passed!"
 
-clean-local:
-	rm -rf autom4te.cache m4
-	rm -f config.h config.h.in config.log config.status configure
-	rm -f Makefile Makefile.in aclocal.m4 compile depcomp
-	rm -f install-sh missing stamp-h1 config.guess config.sub
-	rm -f rhasher test.tmp
+gitclean:
+	git clean -xdf

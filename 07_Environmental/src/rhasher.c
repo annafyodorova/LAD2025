@@ -31,6 +31,10 @@ int main(int argc, char *argv[]) {
                 break;
             }
         #endif
+        size_t line_len = strlen(line);
+        if (line_len > 0 && line[line_len - 1] == '\n') {
+            line[line_len - 1] = '\0';
+        }
 
         char *algo = strtok(line, " ");
         if (!algo) {
@@ -91,8 +95,6 @@ int main(int argc, char *argv[]) {
             }
         }
     }
-
-    free(line);
 
     return 0;
 }
