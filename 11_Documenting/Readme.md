@@ -1,7 +1,7 @@
 Команды запуска 
 
 ```
-autoreconf --install
+autoreconf -fisv
 ```
 
 ```
@@ -28,3 +28,27 @@ make install
 LC_ALL=ru_RU.UTF-8 ./guess
 ```
 
+
+Запуск с римскими числами 
+
+```
+./guess -r
+```
+
+
+Сообщение о подсказке
+
+```
+./guess --help
+```
+
+
+```
+./guess --help-md
+```
+
+Генерация документации 
+
+```
+doxygen
+```
