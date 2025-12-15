@@ -10,7 +10,7 @@
 #include <libintl.h>
 #include <locale.h>
 #include "config.h"
-#include "roman.h"
+#include "libroman.h"
 
 #define _(STRING) gettext(STRING)
 

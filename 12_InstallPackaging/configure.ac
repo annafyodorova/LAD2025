@@ -17,7 +17,8 @@ ALL_LINGUAS="ru"
 AC_CHECK_HEADERS([libintl.h locale.h stdlib.h])
 
 AC_PROG_CC
+LT_INIT
 IT_PROG_INTLTOOL([0.35.0])
 
-AC_CONFIG_FILES([Makefile po/Makefile.in tests/Makefile])
+AC_CONFIG_FILES([Makefile po/Makefile.in test/Makefile])
 AC_OUTPUT

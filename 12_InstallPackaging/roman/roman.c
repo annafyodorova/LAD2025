@@ -1,7 +1,6 @@
-
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
+#include "roman.h"
 
 /**
  * @brief Roman numerals lookup table for numbers 1..100
@@ -15,11 +14,6 @@ static const char *roman_table[101] = {
     [70] = "LXX",  [80] = "LXXX", [90] = "XC",   [100] = "C"
 };
 
-/**
- * @brief Convert arabic number to roman numeral
- * @param value Number from 1 to 100
- * @return Roman numeral string or NULL
- */
 const char *arabic_to_roman(int value) {
     if (value < 1 || value > 100)
         return NULL;
@@ -37,11 +31,6 @@ const char *arabic_to_roman(int value) {
     return buf;
 }
 
-/**
- * @brief Convert roman numeral to arabic number
- * @param roman Roman numeral string
- * @return Number from 1 to 100 or -1 on error
- */
 int roman_to_arabic(const char *roman) {
     for (int i = 1; i <= 100; i++) {
         const char *r = arabic_to_roman(i);
